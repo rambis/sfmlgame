@@ -1,0 +1,4 @@
+﻿     Creating library c:\users\sananth\documents\visual studio 2015\Projects\sfmltest\Debug\sfmltest.lib and object c:\users\sananth\documents\visual studio 2015\Projects\sfmltest\Debug\sfmltest.exp
+sfml-main-d.lib(MainWin32.cpp.obj) : warning LNK4099: PDB 'vc140.pdb' was not found with 'sfml-main-d.lib(MainWin32.cpp.obj)' or at 'c:\users\sananth\documents\visual studio 2015\Projects\sfmltest\Debug\vc140.pdb'; linking object as if no debug info
+  sfmltest.vcxproj -> c:\users\sananth\documents\visual studio 2015\Projects\sfmltest\Debug\sfmltest.exe
+  sfmltest.vcxproj -> c:\users\sananth\documents\visual studio 2015\Projects\sfmltest\Debug\sfmltest.pdb (Full PDB)
