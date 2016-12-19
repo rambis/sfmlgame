@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Ram\SFML_2.0\SFML-2.4.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Ram\SFML_2.0\SFML-2.4.1\include; C:\Ram\game\sfmltest</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +152,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="basicGameLoop.cpp" />
+    <ClCompile Include="keyMouseEvents.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basicGameLoop.h" />
+    <ClInclude Include="globalHeader.h" />
+    <ClInclude Include="keyMouseEvents.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
