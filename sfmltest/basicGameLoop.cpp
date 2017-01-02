@@ -13,16 +13,20 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!"); // Opens a windows of size 500 x 500 
 
 	sf::CircleShape shape(rad); // create an object of circleshape
-//	shape.setFillColor(sf::Color::Blue);
 
-	char path[MAX_PATH];
+	//shape.setFillColor(sf::Color::Transparent);
+
+	char path[MAX_PATH], picPath[MAX_PATH], fontPath[MAX_PATH];
 	GetCurrentDirectoryA(MAX_PATH, path);
+	GetCurrentDirectoryA(MAX_PATH, picPath);
 	strcat_s(path, "\\Resources\\");
-	strcat_s(path, "skyTxt.jpg");
-	printf("%s\n", path);
+	strcpy_s(picPath, path);
+	strcat_s(picPath, "skyTxt.jpg");
+	strcpy_s(fontPath, path);
+	strcat_s(fontPath, "OpenSans-Bold.ttf");
 
 	sf::Texture texture;
-	if (!texture.loadFromFile(path)) {
+	if (!texture.loadFromFile(picPath)) {
 		while (window.isOpen())
 		{
 			sf::Event event;
@@ -36,7 +40,7 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 			sf::Text text;
 			sf::Font font;
 
-			if (!font.loadFromFile("OpenSans-Bold.ttf"))
+			if (!font.loadFromFile(fontPath))
 				return;
 			text.setFont(font);
 			text.setString("Error loading picture");
@@ -48,20 +52,29 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 			window.display();
 		}
 	}
-		
-
+	
+	sf::Event event;
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
 
 
 	//window.setKeyRepeatEnabled(false); // Used to implement key de-bouncing
 
 	while (window.isOpen()) // Main 'game' loop as it's called
 	{
-		sf::Event event;
-		sf::Sprite sprite;
-		sprite.setTexture(texture);
+
+
 		texture.setSmooth(true);
-		sprite.scale(sf::Vector2f(1.f, 1.f));
-		sprite.setTextureRect(sf::IntRect(50, 50, 500, 500));
+		sprite.scale(sf::Vector2f(0.1f, 0.1f));
+		//sprite.setTextureRect(sf::IntRect(50, 50, 200, 200));
+
+		shape.setTexture(&texture);
+		shape.setFillColor(sf::Color(255, 0, 0, 255));
+
+		sf::Sprite sprite2;
+		sprite2.setTexture(texture);
+		sprite2.setTextureRect(sf::IntRect(200, 200, 200, 200));
+		sprite2.setPosition(sf::Vector2f(300, 300));
 
 		while (window.pollEvent(event)) // Poll event. Don't use this for real-time games. It isn't good for realtime applications. Just testing here.
 		{
@@ -112,8 +125,21 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 		if (rad >= 600)
 			rad = 0;
 
+		sf::Text text;
+		sf::Font font;
+
+		if (!font.loadFromFile(fontPath))
+			return;
+		text.setFont(font);
+		text.setString("Error loading picture");
+		text.setFillColor(sf::Color::Black);
+		text.setCharacterSize(40);
+
 		window.clear();	// Always required in a game loop. Otherwise, pixels from previous frame will remain on the screen.
 		window.draw(sprite); // Drawing basically puts all the pixels into a hidden buffer behind the scenes
+		window.draw(sprite2);
+		window.draw(text);
+		window.draw(shape);
 		window.display(); // Reads from the hidden buffer and displays onto screen
 	}
 }
