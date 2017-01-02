@@ -87,12 +87,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Ram\SFML_2.0\SFML-2.4.1\include; C:\Ram\game\sfmltest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Ram\SFML_2.0\SFML-2.4.1\include; C:\Ram\game\sfmltest;C:\Ram\game\sfmltest\Resources</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Ram\SFML_2.0\SFML-2.4.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-main-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -160,6 +160,21 @@
     <ClInclude Include="basicGameLoop.h" />
     <ClInclude Include="globalHeader.h" />
     <ClInclude Include="keyMouseEvents.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\OpenSans-Bold.ttf" />
+    <Font Include="Resources\OpenSans-BoldItalic.ttf" />
+    <Font Include="Resources\OpenSans-ExtraBold.ttf" />
+    <Font Include="Resources\OpenSans-ExtraBoldItalic.ttf" />
+    <Font Include="Resources\OpenSans-Italic.ttf" />
+    <Font Include="Resources\OpenSans-Light.ttf" />
+    <Font Include="Resources\OpenSans-LightItalic.ttf" />
+    <Font Include="Resources\OpenSans-Regular.ttf" />
+    <Font Include="Resources\OpenSans-Semibold.ttf" />
+    <Font Include="Resources\OpenSans-SemiboldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\skyTxt.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -36,4 +36,41 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\OpenSans-Bold.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-BoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-ExtraBold.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-Italic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-Light.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-LightItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-Semibold.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Resources\OpenSans-SemiboldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\skyTxt.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
