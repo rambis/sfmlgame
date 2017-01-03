@@ -3,7 +3,7 @@
 
 int main()
 {
-	basicGameLoop();
+	characterMove();
 
 	return 0;
 }

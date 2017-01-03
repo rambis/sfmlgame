@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="basicGameLoop.cpp" />
+    <ClCompile Include="characterMove.cpp" />
     <ClCompile Include="keyMouseEvents.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

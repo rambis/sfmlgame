@@ -12,20 +12,21 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!"); // Opens a windows of size 500 x 500 
 
-	sf::CircleShape shape(rad); // create an object of circleshape
+	sf::Event event;
 
-	//shape.setFillColor(sf::Color::Transparent);
-
+	// Get working directory to load resources from
 	char path[MAX_PATH], picPath[MAX_PATH], fontPath[MAX_PATH];
 	GetCurrentDirectoryA(MAX_PATH, path);
 	GetCurrentDirectoryA(MAX_PATH, picPath);
-	strcat_s(path, "\\Resources\\");
+	strcat_s(path, "\\Resources\\"); // Look for resources in the ...../Resources/ folder
 	strcpy_s(picPath, path);
-	strcat_s(picPath, "skyTxt.jpg");
+	strcat_s(picPath, "skyTxt.jpg"); // Picture name in resources folder
 	strcpy_s(fontPath, path);
-	strcat_s(fontPath, "OpenSans-Bold.ttf");
+	strcat_s(fontPath, "OpenSans-Bold.ttf"); // Font name in resources folder
 
-	sf::Texture texture;
+	sf::Texture texture; 
+
+	// Check if texture loaded properly.
 	if (!texture.loadFromFile(picPath)) {
 		while (window.isOpen())
 		{
@@ -40,6 +41,7 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 			sf::Text text;
 			sf::Font font;
 
+			// Check font load
 			if (!font.loadFromFile(fontPath))
 				return;
 			text.setFont(font);
@@ -53,10 +55,31 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 		}
 	}
 	
-	sf::Event event;
+	//Create sprite and give it texture
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
+	texture.setSmooth(true);
 
+	sf::Sprite sprite2;
+	sprite2.setTexture(texture);
+	sprite2.setTextureRect(sf::IntRect(200, 200, 200, 200));
+	sprite2.setPosition(sf::Vector2f(300, 300));
+
+	// Create an object of circleshape
+	sf::CircleShape shape(rad); 
+	shape.setTexture(&texture);
+	shape.setFillColor(sf::Color(255, 0, 0, 255));
+
+	// Below creates text 
+	sf::Text text;
+	sf::Font font;
+
+	if (!font.loadFromFile(fontPath))
+		return;
+	text.setFont(font);
+	text.setString("Error loading picture");
+	text.setFillColor(sf::Color::Black);
+	text.setCharacterSize(40);
 
 	//window.setKeyRepeatEnabled(false); // Used to implement key de-bouncing
 
@@ -64,17 +87,9 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 	{
 
 
-		texture.setSmooth(true);
 		sprite.scale(sf::Vector2f(0.1f, 0.1f));
 		//sprite.setTextureRect(sf::IntRect(50, 50, 200, 200));
 
-		shape.setTexture(&texture);
-		shape.setFillColor(sf::Color(255, 0, 0, 255));
-
-		sf::Sprite sprite2;
-		sprite2.setTexture(texture);
-		sprite2.setTextureRect(sf::IntRect(200, 200, 200, 200));
-		sprite2.setPosition(sf::Vector2f(300, 300));
 
 		while (window.pollEvent(event)) // Poll event. Don't use this for real-time games. It isn't good for realtime applications. Just testing here.
 		{
@@ -125,21 +140,15 @@ void basicGameLoop() // Just basic events using keyboards and mouse
 		if (rad >= 600)
 			rad = 0;
 
-		sf::Text text;
-		sf::Font font;
-
-		if (!font.loadFromFile(fontPath))
-			return;
-		text.setFont(font);
-		text.setString("Error loading picture");
-		text.setFillColor(sf::Color::Black);
-		text.setCharacterSize(40);
 
 		window.clear();	// Always required in a game loop. Otherwise, pixels from previous frame will remain on the screen.
-		window.draw(sprite); // Drawing basically puts all the pixels into a hidden buffer behind the scenes
+
+		// Multiple draws draw to the back buffer. Display calls all the drawn stuff
+		window.draw(sprite); 
 		window.draw(sprite2);
 		window.draw(text);
 		window.draw(shape);
+
 		window.display(); // Reads from the hidden buffer and displays onto screen
 	}
 }
