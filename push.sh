@@ -13,8 +13,6 @@ then
 	echo "Committed! Pushing now"
 	echo
 	git push http://github.com/rambis/sfmlgame
-	echo "rambis"
-	echo "Alf0ns0g0mez!"
 else
 	exit 0
 
