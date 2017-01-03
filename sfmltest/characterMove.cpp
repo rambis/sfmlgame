@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <windows.h>
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include "globalHeader.h"
 
@@ -12,12 +13,18 @@ void characterMove()
 	sf::Vector2i source;
 	sf::Vector2f position(0, 0); // Source -> keyboard input, position -> sprite position on window
 
-	sf::RenderWindow window(sf::VideoMode(1000, 1000), "HELLO!");
+	sf::VideoMode getScrRes = sf::VideoMode::getDesktopMode();
+
+	sf::Vector2f screenRes((float)getScrRes.width, (float)getScrRes.height);
+
+	sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "HELLO!");
 
 	sf::Event event;
 
 	sf::Texture texture;
 	sf::Texture bgTexture;
+
+	bgTexture.setRepeated(true);
 
 	sf::Sprite myPlayer;
 	sf::Sprite bgSprite;
@@ -35,6 +42,9 @@ void characterMove()
 
 	myPlayer.setTexture(texture);
 	bgSprite.setTexture(bgTexture);
+//	bgSprite.setTextureRect(sf::IntRect(0, 0, screenRes.x, screenRes.y));
+	
+
 	
 	sf::Clock clock;
 
@@ -80,7 +90,7 @@ void characterMove()
 
 		myPlayer.setPosition(position);
 
-		if ((event.type == sf::Event::KeyPressed) & (elapsed.asMilliseconds() % 2 == 0))
+		if ((event.type == sf::Event::KeyPressed) & (elapsed.asMilliseconds() % 500 == 0))
 			source.x++;
 		else
 			source.x = 0;
