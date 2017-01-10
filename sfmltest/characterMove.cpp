@@ -46,8 +46,15 @@ void characterMove()
 	myPlayer.setTexture(texture);
 	bgSprite.setTexture(bgTexture);
 //	bgSprite.setTextureRect(sf::IntRect(0, 0, screenRes.x, screenRes.y));
-	
 
+	SetCurrentDirectoryA("F:\\dev\\sfmlgame\\sfmltest\\Resources\\");
+	
+	sf::Text text;
+	sf::String sentence;
+	sf::Font font;
+
+	if (!font.loadFromFile("OpenSans-Italic.ttf"))
+		printf("Can't load font!!");
 	
 	sf::Clock clock;
 
@@ -57,7 +64,20 @@ void characterMove()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (event.type == sf::Event::TextEntered)
+			{
+				if (event.text.unicode >= 32 && event.text.unicode <= 126)
+					sentence += (char)event.text.unicode;
+
+				else if (event.text.unicode == 8 && sentence.getSize() > 0)
+					sentence.erase(sentence.getSize() - 1, 1);
+
+				text.setString(sentence);
+				std::cout << "Text entered!!" << std::endl;
+			}
 		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			window.close();
 
@@ -97,7 +117,7 @@ void characterMove()
 		}
 
 		sf::Time elapsed = clock.getElapsedTime();
-		std::cout << elapsed.asSeconds() << std::endl;
+
 	//	myPlayer.setPosition(position);
 
 		if ((event.type == sf::Event::KeyPressed) & (elapsed.asMilliseconds() > 50))
@@ -112,23 +132,19 @@ void characterMove()
 		if (source.x > 6)
 			source.x = 0;
 
+		window.draw(bgSprite);
 		// Vertex array
 		sf::VertexArray vArray(sf::PrimitiveType::Quads, 4);
-		sf::Vector2i arrayBlockSize(10, 10);
+		sf::Vector2i arrayBlockSize(20, 20);
 
 		for (int i = 0; i < (screenRes.x / arrayBlockSize.x); i++)
 		{
 			for (int j = 0; j < screenRes.y / arrayBlockSize.y; j++)
 			{
-				/*vArray[0].position = sf::Vector2f(i * arrayBlockSize.x, j * arrayBlockSize.y);
+				vArray[0].position = sf::Vector2f(i * arrayBlockSize.x, j * arrayBlockSize.y);
 				vArray[1].position = sf::Vector2f((i + 1)* arrayBlockSize.x, j * arrayBlockSize.y);
 				vArray[2].position = sf::Vector2f((i + 1) * arrayBlockSize.x, (j + 1) * arrayBlockSize.y);
-				vArray[3].position = sf::Vector2f(i * arrayBlockSize.x, (j + 1) * arrayBlockSize.y);*/
-
-				vArray[0].position = sf::Vector2f(10,10);
-				vArray[1].position = sf::Vector2f(10,200);
-				vArray[2].position = sf::Vector2f(200,200);
-				vArray[3].position = sf::Vector2f(200,10);
+				vArray[3].position = sf::Vector2f(i * arrayBlockSize.x, (j + 1) * arrayBlockSize.y);
 
 				for (int k = 0; k < 4; k++)
 				{
@@ -136,16 +152,22 @@ void characterMove()
 					int green = rand() % 255;
 					int blue = rand() % 255;
 
-					vArray[k].color = sf::Color(red, green, blue);
+					vArray[k].color = sf::Color(red, green, blue, 127);
 				}
+
+				window.draw(vArray);
 			}
 		}
 
-		window.clear();
-		window.draw(vArray);
-//		window.draw(bgSprite);
+		text.setFillColor(sf::Color::White);
+		text.setCharacterSize(30);
+		text.setStyle(sf::Text::Bold | sf::Text::Italic);
+		
+		window.draw(text);
+
 		window.draw(myPlayer);
 		window.display();
+		window.clear();
 	}
 
 
