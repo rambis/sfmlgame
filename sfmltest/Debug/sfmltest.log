@@ -1,7 +1,3 @@
 ﻿  characterMove.cpp
-f:\dev\sfmlgame\sfmltest\charactermove.cpp(144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-f:\dev\sfmlgame\sfmltest\charactermove.cpp(145): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-f:\dev\sfmlgame\sfmltest\charactermove.cpp(146): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-f:\dev\sfmlgame\sfmltest\charactermove.cpp(147): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  sfmltest.vcxproj -> F:\dev\sfmlgame\Debug\sfmltest.exe
-  sfmltest.vcxproj -> F:\dev\sfmlgame\Debug\sfmltest.pdb (Full PDB)
+  sfmltest.vcxproj -> C:\Ram\sfmlgame\game\Debug\sfmltest.exe
+  sfmltest.vcxproj -> C:\Ram\sfmlgame\game\Debug\sfmltest.pdb (Full PDB)

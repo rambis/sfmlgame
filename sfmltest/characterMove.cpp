@@ -26,26 +26,34 @@ void characterMove()
 
 	sf::Texture texture;
 	sf::Texture bgTexture;
+	sf::Texture bulletTexture;
 
 	bgTexture.setRepeated(true);
 
 	sf::Sprite myPlayer;
+//	sf::Sprite bullet;
 	sf::Sprite bgSprite;
 
-	char path[MAX_PATH], spriteImage[MAX_PATH], bgImage[MAX_PATH];
+	char path[MAX_PATH], playerImage[MAX_PATH], bgImage[MAX_PATH], bulletImage [MAX_PATH];
 	GetCurrentDirectoryA(MAX_PATH, path);
 	strcat_s(path, "\\Resources\\");
-	strcpy_s(spriteImage, path);
-	strcat_s(spriteImage, "testSprite.png");
+	strcpy_s(playerImage, path);
+	strcat_s(playerImage, "testSprite.png");
 	strcpy_s(bgImage, path);
-	strcat_s(bgImage, "skyTxt.jpg");
+	strcat_s(bgImage, "grass2.jpg");
+	strcpy_s(bulletImage, path);
+	strcat_s(bulletImage, "bullets.png");
 
-	if (!texture.loadFromFile(spriteImage) || !bgTexture.loadFromFile(bgImage))
+	if (!texture.loadFromFile(playerImage) || !bgTexture.loadFromFile(bgImage) || !bulletTexture.loadFromFile(bulletImage))
 		exit(2);
 
 	myPlayer.setTexture(texture);
 	bgSprite.setTexture(bgTexture);
-//	bgSprite.setTextureRect(sf::IntRect(0, 0, screenRes.x, screenRes.y));
+	bgSprite.setTextureRect(sf::IntRect(0, 0, screenRes.x, screenRes.y));
+	//bgSprite.
+	bgTexture.setRepeated(true);
+
+
 
 	SetCurrentDirectoryA("F:\\dev\\sfmlgame\\sfmltest\\Resources\\");
 	
@@ -57,6 +65,11 @@ void characterMove()
 		printf("Can't load font!!");
 	
 	sf::Clock clock;
+
+	bool bulletShot = false;
+	sf::Vector2f bulletSpeed(0, 0);
+
+	std::vector <sf::Sprite> bulletVec;
 
 	while (window.isOpen())
 	{
@@ -74,15 +87,59 @@ void characterMove()
 					sentence.erase(sentence.getSize() - 1, 1);
 
 				text.setString(sentence);
-				std::cout << "Text entered!!" << std::endl;
+				//std::cout << "Text entered!!" << std::endl;
 			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			window.close();
-
+		
 		myPlayer.setTextureRect(sf::IntRect((int)(150 * source.x), 117 * source.y, 137, 117));
 
+		std::vector <sf::Sprite>::iterator it = bulletVec.begin();
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			bulletShot = true;
+			sf::Sprite bullet;
+			bullet.setTexture(bulletTexture);
+			bullet.setTextureRect(sf::IntRect(85, 72, 21, 22));
+
+			if (source.y == RIGHT) {
+				bullet.setPosition(sf::Vector2f(myPlayer.getPosition().x + 100, myPlayer.getPosition().y + 80));
+				bulletSpeed = sf::Vector2f(2, 0);
+			}
+			else if (source.y == LEFT) {
+				bullet.setPosition(sf::Vector2f(myPlayer.getPosition().x + 16, myPlayer.getPosition().y + 80));
+				bulletSpeed = sf::Vector2f(-2, 0);
+			}
+			else if (source.y == UP) {
+				bullet.setPosition(sf::Vector2f(myPlayer.getPosition().x + 58, myPlayer.getPosition().y + 40));
+				bulletSpeed = sf::Vector2f(0, -2);
+			}
+			else if (source.y == DOWN) {
+				bullet.setPosition(sf::Vector2f(myPlayer.getPosition().x + 52, myPlayer.getPosition().y + 105));
+				bulletSpeed = sf::Vector2f(0, 2);
+			}
+			bulletVec.push_back(bullet);
+		}
+
+		it = bulletVec.begin();
+		while (it != bulletVec.end()) {
+			if (it->getPosition().x > 800 || it->getPosition().x < 0 || it->getPosition().y < 0 || it->getPosition().y > 800)
+				it = bulletVec.erase(it);
+			if (it == bulletVec.end())
+				break;
+			it++;
+		}
+
+		if (bulletVec.size() != 0) {
+			it = bulletVec.begin();
+			while (it != bulletVec.end()) {
+				it->move(bulletSpeed);
+				it++;
+			}
+		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
@@ -132,9 +189,9 @@ void characterMove()
 		if (source.x > 6)
 			source.x = 0;
 
-		window.draw(bgSprite);
+		//window.draw(bgSprite);
 		// Vertex array
-		sf::VertexArray vArray(sf::PrimitiveType::Quads, 4);
+	/*	sf::VertexArray vArray(sf::PrimitiveType::Quads, 4);
 		sf::Vector2i arrayBlockSize(20, 20);
 
 		for (int i = 0; i < (screenRes.x / arrayBlockSize.x); i++)
@@ -158,13 +215,18 @@ void characterMove()
 				window.draw(vArray);
 			}
 		}
-
-		text.setFillColor(sf::Color::White);
+		*/
+		text.setFillColor(sf::Color::Black);
 		text.setCharacterSize(30);
 		text.setStyle(sf::Text::Bold | sf::Text::Italic);
 		
 		window.draw(text);
 
+		it = bulletVec.begin();
+		while (it != bulletVec.end()) {
+			window.draw(*it);
+			it++;
+		}
 		window.draw(myPlayer);
 		window.display();
 		window.clear();
