@@ -152,15 +152,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="basicGameLoop.cpp" />
-    <ClCompile Include="characterMove.cpp" />
-    <ClCompile Include="keyMouseEvents.cpp" />
+    <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="gameLoop.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basicGameLoop.h" />
+    <ClInclude Include="bullet.h" />
+    <ClInclude Include="character.h" />
+    <ClInclude Include="gameLoop.h" />
     <ClInclude Include="globalHeader.h" />
-    <ClInclude Include="keyMouseEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\OpenSans-Bold.ttf" />

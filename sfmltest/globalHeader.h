@@ -1,5 +1,6 @@
 #pragma once
 
-#include "keyMouseEvents.h"
-#include "basicGameLoop.h"
-#include "characterMove.h"
+#include "gameLoop.h"
+#include "bullet.h"
+#include "character.h"
+
